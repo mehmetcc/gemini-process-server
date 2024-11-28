@@ -1,7 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from pdf_upload_service.core.config import settings
-from pdf_upload_service.services.minio_client import (
-    create_bucket_if_not_exists, upload_file_to_minio)
+from pdf_upload_service.services.minio_client import upload_file_to_minio
 from pdf_upload_service.services.celery_tasks import publish_preprocessing_task
 import uuid
 
