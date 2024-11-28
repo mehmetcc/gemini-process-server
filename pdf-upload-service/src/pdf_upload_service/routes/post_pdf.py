@@ -8,11 +8,12 @@ import uuid
 router = APIRouter()
 
 MAX_FILE_SIZE_MB = 5
+ALLOWED_FILE_EXTENSION = ".pdf"
 
 
 @router.post("/pdf")
 async def upload_pdf(file: UploadFile = File(...)):
-    if not file.filename.lower().endswith(".pdf"):
+    if not file.filename.lower().endswith(ALLOWED_FILE_EXTENSION):
         raise HTTPException(status_code=400, detail="Invalid file extension.")
 
     # This is stored in memory. I'm not sure if there's a better way.
