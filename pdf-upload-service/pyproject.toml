@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pdf-upload-service"
+version = "0.1.0"
+description = ""
+authors = ["mehmetcc <mehmetccm@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "pdf_upload_service", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.115.5"
+uvicorn = "^0.32.1"
+python-multipart = "^0.0.17"
+aiofiles = "^24.1.0"
+minio = "^7.2.12"
+celery = "^5.4.0"
+redis = "^5.2.0"
+pydantic-settings = "^2.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
