@@ -29,3 +29,6 @@ def upload_file_to_minio(file_data, file_name: str):
         length=file_size,
         content_type='application/pdf'
     )
+
+
+create_bucket_if_not_exists(settings.MINIO_BUCKET_NAME)

@@ -15,7 +15,8 @@ async def upload_pdf(file: UploadFile = File(...)):
     if not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Invalid file extension.")
 
-    contents = await file.read() # This is stored in memory. I'm not sure if there's a better way.
+    # This is stored in memory. I'm not sure if there's a better way.
+    contents = await file.read()
     file_size_mb = len(contents) / (1024 * 1024)
     if file_size_mb > MAX_FILE_SIZE_MB:
         raise HTTPException(
@@ -25,7 +26,6 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     file_uuid = str(uuid.uuid4())
 
-    create_bucket_if_not_exists(settings.MINIO_BUCKET_NAME)
     upload_file_to_minio(file.file, file_uuid)
     publish_preprocessing_task(file_uuid)
 
