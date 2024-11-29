@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   minio:
     image: minio/minio:latest
@@ -20,6 +18,27 @@ services:
     ports:
       - "6379:6379"
 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH_USERNAME: "${ME_CONFIG_BASICAUTH_USERNAME}"
+      ME_CONFIG_BASICAUTH_PASSWORD: "${ME_CONFIG_BASICAUTH_PASSWORD}"
+
   pdf-upload-service:
     build: ./pdf-upload-service
     container_name: pdf-upload-service
@@ -31,5 +50,16 @@ services:
       - minio
       - redis
 
+  metadata-extraction-worker:
+    build: ./metadata_extraction_worker # Apparently you can't use container_name if you are working with replicas.
+    depends_on:
+      - minio
+      - redis
+      - mongodb
+    deploy:
+      replicas: 4
+
+
 volumes:
   minio_data:
+  mongodb_data:

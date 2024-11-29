@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "metadata-extraction-worker"
+version = "0.1.0"
+description = ""
+authors = ["mehmetcc <mehmetccm@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "metadata_extraction_worker", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+celery = "^5.4.0"
+minio = "^7.2.12"
+pymongo = "^4.10.1"
+python-dotenv = "^1.0.1"
+redis = "^5.2.0"
+pymupdf = "^1.24.14"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
