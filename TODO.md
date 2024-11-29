@@ -8,3 +8,7 @@
 MAX_FILE_SIZE_MB = 5
 ALLOWED_FILE_EXTENSION = ".pdf"
 ```
+
+[] Write tests for metadata-extraction-worker (check out how testcontainers work)
+
+[] Optimize Image Size in metadata-extraction-worker
